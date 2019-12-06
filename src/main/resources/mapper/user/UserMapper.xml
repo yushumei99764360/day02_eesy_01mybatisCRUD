@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tk.mapper.UserMapper">
+    <!--
+        查询
+            <select>标签
+        参数
+            id 就是dao接口的方法名称
+            resultType 返回值结果类型
+    -->
+    <select id="findAllUser" resultType="com.tk.domain.User">
+        select * from user;
+    </select>
+
+    <!--
+        新增
+            <insert>标签
+        参数
+            id 就是dao接口的方法名称
+            parameterType 参数类型
+    -->
+    <insert id="saveUser" parameterType="com.tk.domain.User">
+        insert into user(username,birthday,sex,address) values (#{username},#{birthday},#{sex},#{address});
+    </insert>
+
+    <!--
+        修改
+            <update>标签
+        参数
+            id 就是dao接口的方法名称
+            parameterType 参数类型
+    -->
+    <update id="updateUser" parameterType="com.tk.domain.User">
+        update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id=#{id};
+    </update>
+
+    <!--
+        删除
+            <delete>标签
+        参数
+            id 就是dao接口的方法名称
+            parameterType 参数类型
+    -->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{userId};
+    </delete>
+
+    <select id="findById" parameterType="int" resultType="com.tk.domain.User">
+        select * from user where id=#{userId};
+    </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultType="com.tk.domain.User">
+        <!-- 方式一 -->
+        select * from user where username like #{name};
+
+        <!-- 方式二 -->
+<!--        select * from user where username like '%${value}';-->
+    </select>
+</mapper>
